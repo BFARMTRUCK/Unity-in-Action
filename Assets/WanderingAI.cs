@@ -24,6 +24,7 @@ public class WanderingAI : MonoBehaviour
         {
             transform.Translate(0, 0, speed * Time.deltaTime);
             Ray ray = new Ray(transform.position, transform.forward);
+            Debug.DrawRay(ray.origin, ray.direction * obstacleRange, Color.red);
             RaycastHit hit;
             if (Physics.SphereCast(ray, 0.75f, out hit))
             {
@@ -37,7 +38,7 @@ public class WanderingAI : MonoBehaviour
                         fireball.transform.rotation = transform.rotation;
                     }
                 }
-                    else if (hit.distance < obstacleRange)
+                    else if (hit.distance < obstacleRange && hitObject != fireball)
                     {
                         float angle = Random.Range(-110, 110);
                         transform.Rotate(0, angle, 0);

@@ -22,7 +22,11 @@ public float gravity=-9.8f;
         movement=Vector3.ClampMagnitude(movement,speed);
         movement.y=gravity;
         movement *= Time.deltaTime;
-        movement=transform.TransformDirection(movement);
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0;
+        cameraForward.Normalize();
+        Quaternion cameraRotation = Quaternion.LookRotation(cameraForward);
+        movement = cameraRotation * movement;
         charController.Move(movement);
     }
 }

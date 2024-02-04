@@ -19,9 +19,17 @@ public class SceneController : MonoBehaviour
          if (enemy == null)
          {
               enemy = Instantiate(enemyPrefab) as GameObject;
-              enemy.transform.position = new Vector3(0, 1, 0);
               float angle = Random.Range(0, 360);
               enemy.transform.Rotate(0, angle, 0);
+              float height = Random.Range(0.1f, 5);
+              enemy.transform.localScale = new Vector3(enemy.transform.localScale.x, height, enemy.transform.localScale.z);
+              enemy.transform.position = new Vector3(0, height/2, 0);
+              Color randomColor = Random.ColorHSV();
+              Renderer renderer = enemy.GetComponent<Renderer>();
+              if (renderer != null)
+              {
+                  renderer.material.color = randomColor;
+              }
          }
         
     }
